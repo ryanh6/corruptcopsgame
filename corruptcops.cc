@@ -24,9 +24,9 @@ class Station {
 		bool chest;
 		bool thiefTrace;
 		// List of Players on the current station
-		vector<Player> occupiedPlayerList;
+		std::vector<Player> occupiedPlayerList;
 		// List of connected nodes / stations
-		vector<Station> connectedStationsList
+		std::vector<Station> connectedStationsList
 	public:
 		int getID() {
 			return stationID;
@@ -36,12 +36,8 @@ class Station {
 			return thiefTrace
 		}
 
-		void setTheifTrace() {
-			if (thiefTrace == false) {
-				thiefTrace = true;
-			} else {
-				thiefTrace = false;
-			}
+		void setThiefTrace() {
+			thiefTrace = !thiefTrace
 		}
 
 		bool getChest() {
@@ -49,18 +45,19 @@ class Station {
 		}
 
 		void setChest() {
-			if (chest == false) {
-				chest = true;
-			} else {
-				chest = false;
-			}
+			chest = !chest
 		}
 
-		vector<Player> getPlayerList() {
+		std::vector<Player> getPlayerList() {
 			return occupiedPlayerList;
 		}
 
-		vector<Station> getConnectedStations() {
+		void addPlayer(const Player& newPlayer) {
+        	occupiedPlayerList.push_back(newPlayer);
+    	}
+
+
+		std::vector<Station> getConnectedStations() {
 			return connectedStationsList;
 		}
 		// init (id, no chest, no trace, no players, given nodes)
