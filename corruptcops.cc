@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 class Player {
 	public:
@@ -18,13 +19,50 @@ class Map {
 };
 
 class Station {
-	public:
+	private:
 		int stationID;
 		bool chest;
 		bool thiefTrace;
 		// List of Players on the current station
+		vector<Player> occupiedPlayerList;
 		// List of connected nodes / stations
-	private:
+		vector<Station> connectedStationsList
+	public:
+		int getID() {
+			return stationID;
+		}
+
+		bool getThiefTrace() {
+			return thiefTrace
+		}
+
+		void setTheifTrace() {
+			if (thiefTrace == false) {
+				thiefTrace = true;
+			} else {
+				thiefTrace = false;
+			}
+		}
+
+		bool getChest() {
+			return chest;
+		}
+
+		void setChest() {
+			if (chest == false) {
+				chest = true;
+			} else {
+				chest = false;
+			}
+		}
+
+		vector<Player> getPlayerList() {
+			return occupiedPlayerList;
+		}
+
+		vector<Station> getConnectedStations() {
+			return connectedStationsList;
+		}
 		// init (id, no chest, no trace, no players, given nodes)
 		// getID
 		// getThief trace
