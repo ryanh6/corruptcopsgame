@@ -1,10 +1,16 @@
 #include <iostream>
+#include <string>
 #include <vector>
+
+class Game {
+	
+};
 
 class Player {
 	public:
 		int id;
 		int role;
+		bool corrupt;
 };
 
 class Map {
