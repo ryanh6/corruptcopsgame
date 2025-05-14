@@ -32,18 +32,18 @@ class Station {
 		// List of Players on the current station
 		std::vector<Player> occupiedPlayerList;
 		// List of connected nodes / stations
-		std::vector<Station> connectedStationsList
+		std::vector<Station> connectedStationsList;
 	public:
 		int getID() {
 			return stationID;
 		}
 
 		bool getThiefTrace() {
-			return thiefTrace
+			return thiefTrace;
 		}
 
 		void setThiefTrace() {
-			thiefTrace = !thiefTrace
+			thiefTrace = !thiefTrace;
 		}
 
 		bool getChest() {
@@ -51,7 +51,7 @@ class Station {
 		}
 
 		void setChest() {
-			chest = !chest
+			chest = !chest;
 		}
 
 		std::vector<Player> getPlayerList() {
