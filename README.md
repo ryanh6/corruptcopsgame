@@ -7,5 +7,8 @@ The game Corrupt Cops comes from the Korean Game Show on Netflix called the Devi
 - The goal of the corrupt cops is to stop the regular cops from catching the theives while concealing their own identity as well. Each round, the corrupt cops are secretly notified of the theives locations on the game board. Note that the theives are aware of the identities of the corrupt cops. 
 
 ## Compiling / Running
+
+To compile, use the command: "g++ corruptcops.cpp -o corruptcopsgame". To run the file, use "./corruptcopsgame"
+
 ## Tools
 ## Optimizations
