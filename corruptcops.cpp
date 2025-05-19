@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <bits/stdc++.h>
 
 class Player {
 	private:
@@ -12,16 +13,45 @@ class Player {
 		Player(int newId, std::string newName) {
 			this->id = newId;
 			this->name = newName;
+			this->corrupt = false;
+			this->role = "None";
 		}
+		friend std::ostream& operator<<(std::ostream& outputStream, const Player& newPlayer) {
+			outputStream << "(Player " << newPlayer.id << ") " << newPlayer.name << " is " << newPlayer.role;
+			
+			if (newPlayer.corrupt == true) {
+				outputStream << " (CORRUPT)";
+			}
 
+			outputStream << std::endl;
+
+			return outputStream;
+		}
+		int getID() {
+			return this->id;
+		}
+		bool getCorrupt() {
+			return this->corrupt;
+		}
 		std::string getName() {
 			return this->name;
+		}
+		std::string getRole() {
+			return this->role;
+		}
+		void setCorrupt() {
+			this->corrupt = !(this->corrupt);
+		}
+		void setRole(std::string newRole) {
+			this->role = newRole;
 		}
 };
 
 class CorruptCops {
 	private:
-		std::vector<std::string> gameRoles = {"Blue 1", "Blue 2", "Blue 3", "Red 1", "Red 2", "Red 3", "Green 1", "Green 2", "Green 3", "Thief 1", "Thief 2"};
+		int rounds = 10;
+		std::vector<std::string> gameRoles = {"Blue 1", "Blue 2", "Blue 3", "Blue 4", "Red 1", "Red 2", "Red 3", 
+												"Red 4", "Green 1", "Green 2", "Green 3", "Green 4", "Thief 1", "Thief 2"};
 		std::vector<Player> playerList;
 	public:
 		void play() {
@@ -42,13 +72,38 @@ class CorruptCops {
 			playerList.push_back(Player(13, "Mary"));
 			playerList.push_back(Player(14, "Nathan"));
 
+			// Choosing Indices For Corrupts
+			int index1 = rand() % (playerList.size() - 2);
+			int index2 = (index1 + 4 + (rand() % 4)) % (playerList.size() - 2);
+
+			// std::cout << index1 << std::endl;
+			// std::cout << index2 << std::endl;
+
+			// Shuffling The Players
+			for (int i = playerList.size() - 1; i >= 0; i--) {
+				int j = rand() % (i + 1);
+				std::swap(playerList[i], playerList[j]);
+			}
+		
+			// Assigning Roles
 			for (int i = 0; i < playerList.size(); i++) {
-				std::cout << playerList[i].getName() << std::endl;
+				playerList[i].setRole(gameRoles[i]);
+
+				if (i == index1 || i == index2){
+					playerList[i].setCorrupt();
+				}
+			}
+
+			// Printing Players Out
+			for (int i = 0; i < playerList.size(); i++) {
+				std::cout << playerList[i];
 			}
 		}
 };
 
 int main() {
+	srand(time(0));
+
 	CorruptCops game;
 	game.play();
 
