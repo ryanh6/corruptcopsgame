@@ -50,9 +50,13 @@ class Player {
 class CorruptCops {
 	private:
 		int rounds = 10;
-		std::vector<std::string> gameRoles = {"Blue 1", "Blue 2", "Blue 3", "Blue 4", "Red 1", "Red 2", "Red 3", 
-												"Red 4", "Green 1", "Green 2", "Green 3", "Green 4", "Thief 1", "Thief 2"};
 		std::vector<Player> playerList;
+		std::vector<Player> blueTeam;
+		std::vector<Player> redTeam;
+		std::vector<Player> greenTeam;
+		std::vector<Player> thievesTeam;
+		std::vector<std::vector<Player>> copsTeam;
+		std::vector<std::vector<Player>> turnOrder;
 	public:
 		void play() {
 			std::cout << "Main Game Loop Starts Here" << std::endl;
@@ -72,13 +76,6 @@ class CorruptCops {
 			playerList.push_back(Player(13, "Mary"));
 			playerList.push_back(Player(14, "Nathan"));
 
-			// Choosing Indices For Corrupts
-			int index1 = rand() % (playerList.size() - 2);
-			int index2 = (index1 + 4 + (rand() % 4)) % (playerList.size() - 2);
-
-			// std::cout << index1 << std::endl;
-			// std::cout << index2 << std::endl;
-
 			// Shuffling The Players
 			for (int i = playerList.size() - 1; i >= 0; i--) {
 				int j = rand() % (i + 1);
@@ -87,16 +84,72 @@ class CorruptCops {
 		
 			// Assigning Roles
 			for (int i = 0; i < playerList.size(); i++) {
-				playerList[i].setRole(gameRoles[i]);
-
-				if (i == index1 || i == index2){
-					playerList[i].setCorrupt();
+				if (i >= 0 && i <= 3) {
+					playerList[i].setRole("Blue " + std::to_string(i + 1));
+					blueTeam.push_back(playerList[i]);
+				} else if (i >= 4 && i <= 7) {
+					playerList[i].setRole("Red " + std::to_string(i - 3));
+					redTeam.push_back(playerList[i]);
+				} else if (i >= 8 && i <= 11) {
+					playerList[i].setRole("Green " + std::to_string(i - 7));
+					greenTeam.push_back(playerList[i]);
+				} else {
+					playerList[i].setRole("Thief " + std::to_string(i - 11));
+					thievesTeam.push_back(playerList[i]);
 				}
 			}
 
+			copsTeam.push_back(blueTeam);
+			copsTeam.push_back(redTeam);
+			copsTeam.push_back(greenTeam);
+
+			int index1 = rand() % copsTeam.size();
+			int index2 = (index1 + 1 + (rand() % 2)) % copsTeam.size();
+			int index3 = rand() % copsTeam[index1].size();
+			int index4 = rand() % copsTeam[index2].size();
+
+			// std::cout << index1 << ":" << index3 << std::endl;
+			// std::cout << index2 << ":" << index4 << std::endl;
+
+			copsTeam[index1][index3].setCorrupt();
+			copsTeam[index2][index4].setCorrupt();
+
 			// Printing Players Out
-			for (int i = 0; i < playerList.size(); i++) {
-				std::cout << playerList[i];
+			// for (int i = 0; i < playerList.size(); i++) {
+			// 	std::cout << playerList[i];
+			// }
+
+			std::cout << "Cops" << std::endl;
+			for (int i = 0; i < copsTeam.size(); i++) {
+				for (int j = 0; j < copsTeam[i].size(); j++) {
+					std::cout << copsTeam[i][j];
+				}
+			}
+
+			std::cout << "Thieves Team" << std::endl;
+			for (int i = 0; i < thievesTeam.size(); i++) {
+				std::cout << thievesTeam[i];
+			}
+
+			for (int i = 0; i < rounds; i++) {
+				std::cout << "Round " + std::to_string(i + 1) << std::endl;
+
+				turnOrder.clear();
+				turnOrder.push_back(thievesTeam);
+
+				int startingTeam = rand() % copsTeam.size();
+				int movementDirection = (rand() % 2) + 1;
+
+				for (int j = 0; j < 3; j++) {
+					turnOrder.push_back(copsTeam[startingTeam]);
+					startingTeam = ((startingTeam + movementDirection) % 3);
+				}
+
+				for (int j = 0; j < turnOrder.size(); j++) {
+					for (int k = 0; k < turnOrder[j].size(); k++) {
+						std::cout << "	It is now " + turnOrder[j][k].getName() + "'s Turn" << std::endl;
+					}
+				}
 			}
 		}
 };
