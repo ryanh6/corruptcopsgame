@@ -47,6 +47,39 @@ class Player {
 		}
 };
 
+class Map {
+	private:
+	public:
+};
+
+class Station {
+	private:
+		int stationID;
+		bool chest;
+		bool trace;
+	public:
+		Station(int newId){
+			this->stationID = newId;
+			this->chest = false;
+			this->trace = false;
+		}
+		int getStationID() {
+			return this->stationID;
+		}
+		bool getChest() {
+			return this->chest;
+		}
+		void setChest() {
+			this->chest = !(this->chest);
+		}
+		bool getTrace() {
+			return this->trace;
+		}
+		void setTrace(bool newTraceValue) {
+			this->trace = newTraceValue;
+		}
+};
+
 class CorruptCops {
 	private:
 		int rounds = 10;
