@@ -49,6 +49,8 @@ class Player {
 
 class Map {
 	private:
+		std::vector<Station> stations;
+		std::vector<Station> chestLocations;
 	public:
 };
 
@@ -58,7 +60,7 @@ class Station {
 		bool chest;
 		bool trace;
 	public:
-		Station(int newId){
+		Station(int newId) {
 			this->stationID = newId;
 			this->chest = false;
 			this->trace = false;
