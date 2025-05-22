@@ -50,7 +50,7 @@ class Player {
 class Map {
 	private:
 		std::vector<Station> stations;
-		std::vector<Station> chestLocations;
+		std::vector<int> chestLocations;
 	public:
 };
 
@@ -92,6 +92,7 @@ class CorruptCops {
 		std::vector<Player> thievesTeam;
 		std::vector<std::vector<Player>> copsTeam;
 		std::vector<std::vector<Player>> turnOrder;
+		Map gameMap;
 	public:
 		void play() {
 			std::cout << "Main Game Loop Starts Here" << std::endl;
