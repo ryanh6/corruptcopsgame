@@ -47,13 +47,6 @@ class Player {
 		}
 };
 
-class Map {
-	private:
-		std::vector<Station> stations;
-		std::vector<int> chestLocations;
-	public:
-};
-
 class Station {
 	private:
 		int stationID;
@@ -80,6 +73,13 @@ class Station {
 		void setTrace(bool newTraceValue) {
 			this->trace = newTraceValue;
 		}
+};
+
+class Map {
+	private:
+		std::vector<Station> stations;
+		std::vector<int> chestLocations;
+	public:
 };
 
 class CorruptCops {
@@ -183,7 +183,7 @@ class CorruptCops {
 
 				for (int j = 0; j < turnOrder.size(); j++) {
 					for (int k = 0; k < turnOrder[j].size(); k++) {
-						std::cout << "	It is now " + turnOrder[j][k].getName() + "'s Turn" << std::endl;
+						std::cout << " It is now " + turnOrder[j][k].getName() + "'s Turn" << std::endl;
 					}
 				}
 			}
