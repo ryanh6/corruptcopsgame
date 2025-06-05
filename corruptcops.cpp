@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
@@ -52,14 +53,19 @@ class Station {
 		int stationID;
 		bool chest;
 		bool trace;
+		std::vector<int> connections;
 	public:
-		Station(int newId) {
+		Station(int newId, std::vector<int> connectedStations) {
 			this->stationID = newId;
 			this->chest = false;
 			this->trace = false;
+			this->connections = connectedStations;
 		}
 		int getStationID() {
 			return this->stationID;
+		}
+		std::vector<int> getConnectedStations() {
+			return this->connections;
 		}
 		bool getChest() {
 			return this->chest;
@@ -80,6 +86,26 @@ class Map {
 		std::vector<Station> stations;
 		std::vector<int> chestLocations;
 	public:
+		void readMapLayout(std::string fileName){
+			int count = 1;
+			std::string output;
+			std::ifstream myFile(fileName);
+
+			while (getline(myFile, output)) {
+				std::istringstream iss(output);
+
+				int value;
+				std::vector<int> numbers;
+
+				while (iss >> value) {
+					numbers.push_back(value);
+				}
+			
+				Station newStation = Station(count, numbers);
+				stations.push_back(newStation);
+				count++;
+			}
+		}
 };
 
 class CorruptCops {
@@ -166,6 +192,9 @@ class CorruptCops {
 			for (int i = 0; i < thievesTeam.size(); i++) {
 				std::cout << thievesTeam[i];
 			}
+
+			gameMap = Map();
+			gameMap.readMapLayout("seoulsubwaystationgraph.txt");
 
 			for (int i = 0; i < rounds; i++) {
 				std::cout << "Round " + std::to_string(i + 1) << std::endl;
