@@ -9,6 +9,13 @@ The game Corrupt Cops comes from the Korean Game Show on Netflix called the Devi
 - The goal of the theives is to navigate the game board collect loot while evading getting arrested by cops. 
 - The goal of the corrupt cops is to stop the regular cops from catching the theives while concealing their own identity as well. Each round, the corrupt cops are secretly notified of the theives locations on the game board. Note that the theives are aware of the identities of the corrupt cops. 
 
+- A round of the game proceeds as follows...
+- The 2 thieves will move their piece on the board, moving up to 2 spaces, in an attempt to collect loot scattered across the map. Only theives are aware of the location of the loot on the map. Whenever a thief moves, they leave behind a permanent trace on the space they left, indicating that they were at this space before
+- Once the 2 thieves have moved, the corrupt cops are secretly informed of the thieves' locations.
+- 
+
+- Each round, team order of player will be shuffled
+
 ## Compiling / Running
 
 - To compile, use the command: "g++ corruptcops.cpp -o corruptcopsgame".
