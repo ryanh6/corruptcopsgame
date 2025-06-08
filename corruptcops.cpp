@@ -19,6 +19,11 @@ class Node {
 
 class Board {
 	std::vector<Node> stations;
+
+	public:
+		void readMapLayout(std::string fileName) {
+			
+		}
 };
 
 class CorruptCopsGame {
